@@ -2,57 +2,37 @@
 <html>
 <head>
     <title>PDF Files</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 20px;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-bottom: 20px;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <h1>PDF Files</h1>
-    <ul>
-        <!-- JavaScript code to dynamically populate the list -->
-        <script>
-            // Get all the files in the current directory
-            fetch('./')
-                .then(response => response.text())
-                .then(text => {
-                    const parser = new DOMParser();
-                    const html = parser.parseFromString(text, 'text/html');
-                    const files = Array.from(html.querySelectorAll('a')).map(a => a.href);
-
-                    // Filter the files to include only PDFs
-                    const pdfFiles = files.filter(file => file.endsWith('.pdf'));
-
-                    // Generate the list items
-                    const listItems = pdfFiles.map(file => `<li><a href="${file}">${file}</a></li>`);
-
-                    // Append the list items to the unordered list
-                    const ul = document.querySelector('ul');
-                    ul.innerHTML = listItems.join('');
-                });
-        </script>
+    <h1>List of PDF Files</h1>
+    <ul id="fileList">
+        <!-- Files will be added here by JavaScript -->
     </ul>
+
+    <script>
+        // Predefined list of files
+        var files = ["1520-0493-mwr-d-16-0417.1.pdf", "1520-0493-mwr-d-18-0359.1.pdf", "Quart J Royal Meteoro Soc - 2021 - Mile - Supermodding A special footprint operator for mesoscale data assimilation using.pdf"];
+
+        // Get the file list element
+        var fileList = document.getElementById("fileList");
+
+        // Loop through the files and add them to the list
+        for (var i = 0; i < files.length; i++) {
+            // Create a new list item
+            var li = document.createElement("li");
+
+            // Create a link
+            var a = document.createElement("a");
+            a.href = files[i];
+            a.textContent = files[i];
+
+            // Add the link to the list item
+            li.appendChild(a);
+
+            // Add the list item to the list
+            fileList.appendChild(li);
+        }
+    </script>
 </body>
 </html>
 
