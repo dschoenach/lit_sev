@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDF Files</h1>
+    <ul>
+        <!-- JavaScript code to dynamically populate the list -->
+        <script>
+            // Get all the files in the current directory
+            fetch('./')
+                .then(response => response.text())
+                .then(text => {
+                    const parser = new DOMParser();
+                    const html = parser.parseFromString(text, 'text/html');
+                    const files = Array.from(html.querySelectorAll('a')).map(a => a.href);
+
+                    // Filter the files to include only PDFs
+                    const pdfFiles = files.filter(file => file.endsWith('.pdf'));
+
+                    // Generate the list items
+                    const listItems = pdfFiles.map(file => `<li><a href="${file}">${file}</a></li>`);
+
+                    // Append the list items to the unordered list
+                    const ul = document.querySelector('ul');
+                    ul.innerHTML = listItems.join('');
+                });
+        </script>
+    </ul>
+</body>
+</html>
+
